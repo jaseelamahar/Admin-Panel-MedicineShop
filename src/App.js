@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import ProductForm from "./components/ProductForm";
+import ProductList from "./components/ProductList";
+import React,{useState} from 'react'
+import CartModal from "./components/CartModal";
+import CartProvider from "./context/CartContext";
+
+
 
 function App() {
+  const[isCartOpen,setIsCartopen]=useState(false)
+   const toggleCart=()=>{
+    setIsCartopen(!isCartOpen)
+   }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <CartProvider>
+       
+        <ProductForm/>
+        <ProductList/>
+        <button onClick={toggleCart}>Cart</button>
+        {isCartOpen && <CartModal onClose={toggleCart} />}
+      
+      </CartProvider>
     </div>
   );
 }
 
 export default App;
+ 
